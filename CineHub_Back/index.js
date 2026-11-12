@@ -26,5 +26,5 @@ app.use("/reservations", checkToken, reservationsRoutes);
 
 const PORT = process.env.SERVER_PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Serveur lancé sur http://localhost:${PORT}`);
+  console.log(`Serveur lancé sur http://127.0.0.1:${PORT}`);
 });
