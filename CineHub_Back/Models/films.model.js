@@ -60,6 +60,9 @@ export const updateFilm = async (id, { title, description, duration, genre, rele
 };
 
 export const deleteFilm = async (id) => {
-  const [result] = await pool.query("DELETE FROM films WHERE fi_id = ?", [id]);
+  const [result] = await pool.query(
+    "UPDATE films SET fi_is_showing = 0 WHERE fi_id = ?",
+    [id]
+  );
   return result;
 };

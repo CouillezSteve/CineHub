@@ -47,7 +47,7 @@ export const getReservationById = async (id) => {
 // Capacité de la salle + places déjà réservées pour une séance
 export const getScreeningAvailability = async (screeningId) => {
   const [rows] = await pool.query(
-    `SELECT s.sc_id, r.ro_capacity,
+    `SELECT s.sc_id, s.sc_datetime, r.ro_capacity,
             COALESCE((SELECT SUM(re.re_seats) FROM reservations re WHERE re.re_screening = s.sc_id), 0) AS reserved
      FROM screenings s
      JOIN rooms r ON r.ro_id = s.sc_room

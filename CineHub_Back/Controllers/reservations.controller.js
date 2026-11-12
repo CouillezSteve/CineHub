@@ -51,6 +51,11 @@ export const addReservation = async (req, res) => {
       return res.status(404).json({ error: "Séance introuvable" });
     }
 
+    // Bonus : on ne peut pas réserver une séance déjà passée
+    if (new Date(availability.sc_datetime) < new Date()) {
+      return res.status(403).json({ error: "Cette séance est déjà passée" });
+    }
+
     if (Number(availability.reserved) + seats > availability.ro_capacity) {
       return res.status(403).json({ error: "Plus assez de places disponibles" });
     }
