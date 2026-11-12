@@ -57,7 +57,7 @@ CREATE TABLE reservations (
 
 -- Compte admin de démonstration (mot de passe : Admin1234)
 INSERT INTO users (us_username, us_password, us_email, us_role)
-VALUES ('admin', 'COLLE_TON_HASH_ICI', 'admin@cinehub.com', 'admin');
+VALUES ('admin', '$2b$10$MD/suh/eVXYtPi15j0xyRe7yD5S.baRWe483PvauS0iqVNl5Rk0aO', 'admin@cinehub.com', 'admin');
 
 INSERT INTO films (fi_title, fi_description, fi_duration, fi_genre, fi_release_date, fi_is_showing) VALUES
 ('Inception', 'Un voleur s''infiltre dans les rêves pour y implanter une idée.', 148, 'Science-fiction', '2010-07-21', 1),
