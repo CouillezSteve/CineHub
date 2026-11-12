@@ -2,7 +2,6 @@ import "dotenv/config";
 import express from "express";
 import filmsRoutes from "./Routes/films.route.js";
 import authRoutes from "./Routes/auth.route.js";
-import { checkToken } from "./Middlewares/auth.middleware.js";
 
 const app = express();
 app.use(express.json());
