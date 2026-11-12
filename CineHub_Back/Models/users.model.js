@@ -7,3 +7,11 @@ export const createUser = async (username, email, hashedPassword) => {
   );
   return result;
 };
+
+export const findUserByUsername = async (username) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM users WHERE us_username = ?",
+    [username]
+  );
+  return rows[0];
+};
