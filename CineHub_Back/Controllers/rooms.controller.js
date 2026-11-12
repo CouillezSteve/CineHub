@@ -1,39 +1,72 @@
+import {
+  getAllRooms,
+  getRoomById,
+  createRoom,
+  updateRoom,
+  deleteRoom,
+} from "../Models/rooms.model.js";
+
 export const getRooms = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    res.json(await getAllRooms());
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-export const getRoomById = async (req, res) => {
+export const getRoom = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    const room = await getRoomById(req.params.id);
+    if (!room) {
+      return res.status(404).json({ message: "Salle introuvable" });
+    }
+    res.json(room);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-export const createRoom = async (req, res) => {
+export const addRoom = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    const { name, capacity } = req.body ?? {};
+    if (!name || !capacity) {
+      return res.status(403).json({ message: "Champs manquants" });
+    }
+    const result = await createRoom(req.body);
+    const room = await getRoomById(result.insertId);
+    res.status(201).json({ message: "Salle créée", room });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-export const updateRoom = async (req, res) => {
+export const patchRoom = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    const room = await getRoomById(req.params.id);
+    if (!room) {
+      return res.status(404).json({ message: "Salle introuvable" });
+    }
+    await updateRoom(req.params.id, req.body ?? {});
+    const updated = await getRoomById(req.params.id);
+    res.json({ message: "Salle modifiée", room: updated });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-export const deleteRoom = async (req, res) => {
+export const removeRoom = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    const result = await deleteRoom(req.params.id);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Salle introuvable" });
+    }
+    res.json({ message: "Salle supprimée" });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };

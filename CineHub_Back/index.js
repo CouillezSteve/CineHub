@@ -4,6 +4,7 @@ import authRoutes from "./Routes/auth.route.js";
 import filmsRoutes from "./Routes/films.route.js";
 import usersRoutes from "./Routes/users.route.js";
 import { checkToken } from "./Middlewares/auth.middleware.js";
+import roomsRoutes from "./Routes/rooms.route.js";
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use("/auth", authRoutes);
 // Routes protégées (token obligatoire)
 app.use("/films", checkToken, filmsRoutes);
 app.use("/users", checkToken, usersRoutes);
+app.use("/rooms", checkToken, roomsRoutes);
 
 const PORT = process.env.SERVER_PORT || 3000;
 app.listen(PORT, () => {

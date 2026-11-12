@@ -1,21 +1,19 @@
-// Signé par : Gemini
 import { Router } from "express";
-import { 
-  getRooms, 
-  getRoomById, 
-  createRoom, 
-  updateRoom, 
-  deleteRoom 
-} from "../Controllers/rooms.controller.js";
-import { checkToken } from "../Middlewares/auth.middleware.js";
 import { checkAdmin } from "../Middlewares/admin.middleware.js";
+import {
+  getRooms,
+  getRoom,
+  addRoom,
+  patchRoom,
+  removeRoom,
+} from "../Controllers/rooms.controller.js";
 
 const router = Router();
 
-router.get("/", checkToken, getRooms);
-router.get("/:id", checkToken, getRoomById);
-router.post("/", checkToken, checkAdmin, createRoom);
-router.patch("/:id", checkToken, checkAdmin, updateRoom);
-router.delete("/:id", checkToken, checkAdmin, deleteRoom);
+router.get("/", getRooms);
+router.get("/:id", getRoom);
+router.post("/", checkAdmin, addRoom);
+router.patch("/:id", checkAdmin, patchRoom);
+router.delete("/:id", checkAdmin, removeRoom);
 
 export default router;
