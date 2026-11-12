@@ -7,7 +7,7 @@ export const register = async (req, res) => {
     const { username, email, password } = req.body ?? {};
 
     if (!username || !email || !password) {
-      return res.status(403).json({ message: "Champs manquants" });
+      return res.status(403).json({ error: "Champs manquants" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -21,7 +21,10 @@ export const register = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Erreur serveur" });
+    if (error.code === "ER_DUP_ENTRY") {
+      return res.status(500).json({ error: "Nom d'utilisateur ou email déjà utilisé" });
+    }
+    res.status(500).json({ error: "Erreur serveur" });
   }
 };
 
@@ -30,13 +33,13 @@ export const login = async (req, res) => {
     const { username, password } = req.body ?? {};
 
     if (!username || !password) {
-      return res.status(403).json({ message: "Champs manquants" });
+      return res.status(403).json({ error: "Champs manquants" });
     }
 
     const user = await findUserByUsername(username);
 
     if (!user || !bcrypt.compareSync(password, user.us_password)) {
-      return res.status(403).json({ message: "Identifiants incorrects" });
+      return res.status(403).json({ error: "Identifiants incorrects" });
     }
 
     const token = jwt.sign(
@@ -53,6 +56,6 @@ export const login = async (req, res) => {
     res.json({ message: "Connexion réussie", token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Erreur serveur" });
+    res.status(500).json({ error: "Erreur serveur" });
   }
 };
