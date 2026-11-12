@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 
 app.use("/films", filmsRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });

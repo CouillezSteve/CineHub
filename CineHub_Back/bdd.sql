@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS cinehub
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-CREATE USER IF NOT EXISTS 'cinehub_user'@'localhost' IDENTIFIED BY 'CinehubDev';
+CREATE USER IF NOT EXISTS 'cine_user'@'localhost' IDENTIFIED BY 'CinehubDev';
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON cinehub.* TO 'cinehub_user'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON cinehub.* TO 'cine_user'@'localhost';
 
 FLUSH PRIVILEGES;
 
