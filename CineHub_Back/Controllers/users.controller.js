@@ -1,44 +1,72 @@
-// Liste tous les utilisateurs (Admin)
-export const getAllUsers = async (req, res) => {
+import {
+  getAllUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
+} from "../Models/users.model.js";
+
+export const listUsers = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    res.json(await getAllUsers());
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-// Profil de l'utilisateur connecté (req.user)
-export const getMe = async (req, res) => {
+export const getMe = (req, res) => {
+  res.json(req.user);
+};
+
+export const getUser = async (req, res) => {
   try {
-    return res.status(200).json(req.user);
+    const user = await getUserById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
+    }
+    res.json(user);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-// Détail d'un utilisateur par son ID
-export const getUserById = async (req, res) => {
+export const patchUser = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    const id = Number(req.params.id);
+    const isSelf = req.user.us_id === id;
+    const isAdmin = req.user.us_role === "admin";
+
+    if (!isSelf && !isAdmin) {
+      return res.status(403).json({ message: "Accès refusé" });
+    }
+
+    const { username, email } = req.body ?? {};
+    if (!username && !email) {
+      return res.status(400).json({ message: "Aucun champ à modifier" });
+    }
+
+    const result = await updateUser(id, username, email);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
+    }
+
+    res.json(await getUserById(id));
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-// Modifier un utilisateur
-export const updateUser = async (req, res) => {
+export const removeUser = async (req, res) => {
   try {
-    return res.status(501).json({ message: "Non implémenté" });
+    const result = await deleteUser(req.params.id);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
+    }
+    res.json({ message: "Utilisateur supprimé" });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
-};
-
-// Supprimer un utilisateur (Admin)
-export const deleteUser = async (req, res) => {
-  try {
-    return res.status(501).json({ message: "Non implémenté" });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
