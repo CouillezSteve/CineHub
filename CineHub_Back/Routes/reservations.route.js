@@ -1,21 +1,19 @@
-// Signé par : Gemini
 import { Router } from "express";
-import {
-  getAllReservations,
-  getMyReservations,
-  getReservationsByScreening,
-  createReservation,
-  deleteReservation,
-} from "../Controllers/reservations.controller.js";
-import { checkToken } from "../Middlewares/auth.middleware.js";
 import { checkAdmin } from "../Middlewares/admin.middleware.js";
+import {
+  listReservations,
+  myReservations,
+  screeningReservations,
+  addReservation,
+  removeReservation,
+} from "../Controllers/reservations.controller.js";
 
 const router = Router();
 
-router.get("/", checkToken, checkAdmin, getAllReservations);
-router.get("/me", checkToken, getMyReservations);
-router.get("/screening/:screeningID", checkToken, checkAdmin, getReservationsByScreening);
-router.post("/", checkToken, createReservation);
-router.delete("/:id", checkToken, deleteReservation);
+router.get("/", checkAdmin, listReservations);
+router.get("/me", myReservations);
+router.get("/screening/:screeningID", checkAdmin, screeningReservations);
+router.post("/", addReservation);
+router.delete("/:id", removeReservation);
 
 export default router;

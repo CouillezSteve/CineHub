@@ -6,6 +6,7 @@ import usersRoutes from "./Routes/users.route.js";
 import { checkToken } from "./Middlewares/auth.middleware.js";
 import roomsRoutes from "./Routes/rooms.route.js";
 import screeningsRoutes from "./Routes/screenings.route.js";
+import reservationsRoutes from "./Routes/reservations.route.js";
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,8 @@ app.use("/films", checkToken, filmsRoutes);
 app.use("/users", checkToken, usersRoutes);
 app.use("/rooms", checkToken, roomsRoutes);
 app.use("/screenings", checkToken, screeningsRoutes);
+app.use("/reservations", checkToken, reservationsRoutes);
+
 
 const PORT = process.env.SERVER_PORT || 3000;
 app.listen(PORT, () => {
