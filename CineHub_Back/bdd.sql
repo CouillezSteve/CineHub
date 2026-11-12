@@ -56,3 +56,29 @@ CREATE TABLE IF NOT EXISTS reservations (
   FOREIGN KEY (re_screening) REFERENCES screenings(sc_id),
   UNIQUE (re_user, re_screening)
 );
+
+
+
+-- Compte admin de démonstration (mot de passe : Admin1234)
+INSERT INTO users (us_username, us_password, us_email, us_role)
+VALUES ('admin', '$2b$10$ZY6cc2EHgRKfD7Dw/wHWVe5qAP2mnvRFLhQKUMGbxoakn.yI1XCli', 'admin@cinehub.com', 'admin');
+
+-- Films
+INSERT INTO films (fi_title, fi_description, fi_duration, fi_genre, fi_release_date, fi_is_showing) VALUES
+('Inception', 'Un voleur s''infiltre dans les rêves pour y implanter une idée.', 148, 'Science-fiction', '2010-07-21', 1),
+('Le Parrain', 'La saga d''une famille mafieuse new-yorkaise.', 175, 'Drame', '1972-10-18', 1),
+('Interstellar', 'Des explorateurs traversent un trou de ver pour sauver l''humanité.', 169, 'Science-fiction', '2014-11-05', 1),
+('Amélie Poulain', 'Une jeune serveuse parisienne décide d''embellir la vie des autres.', 122, 'Comédie', '2001-04-25', 0);
+
+-- Salles
+INSERT INTO rooms (ro_name, ro_capacity) VALUES
+('Salle 1', 120),
+('Salle 2', 80),
+('Salle 3', 50);
+
+-- Séances (sc_film et sc_room = ids des lignes ci-dessus)
+INSERT INTO screenings (sc_film, sc_room, sc_datetime, sc_price) VALUES
+(1, 1, '2026-12-01 20:00:00', 9.50),
+(1, 2, '2026-12-02 18:00:00', 8.50),
+(2, 1, '2026-12-03 21:00:00', 9.50),
+(3, 3, '2026-12-04 19:30:00', 10.00);
