@@ -1,17 +1,20 @@
 import "dotenv/config";
 import express from "express";
-import filmsRoutes from "./Routes/films.route.js";
 import authRoutes from "./Routes/auth.route.js";
+import filmsRoutes from "./Routes/films.route.js";
+import { checkToken } from "./Middlewares/auth.middleware.js";
 
 const app = express();
 app.use(express.json());
 
+// Routes publiques
 app.get("/", (req, res) => {
   res.json({ message: "API CineHub opérationnelle" });
 });
-
-app.use("/films", filmsRoutes);
 app.use("/auth", authRoutes);
+
+// Routes protégées (token obligatoire)
+app.use("/films", checkToken, filmsRoutes);
 
 const PORT = process.env.SERVER_PORT || 3000;
 app.listen(PORT, () => {
