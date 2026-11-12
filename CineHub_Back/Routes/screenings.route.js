@@ -1,23 +1,21 @@
-// Signé par : Gemini
 import { Router } from "express";
-import { 
-  getScreenings, 
-  getScreeningsByFilm, 
-  getScreeningById, 
-  createScreening, 
-  updateScreening, 
-  deleteScreening 
-} from "../Controllers/screenings.controller.js";
-import { checkToken } from "../Middlewares/auth.middleware.js";
 import { checkAdmin } from "../Middlewares/admin.middleware.js";
+import {
+  getScreenings,
+  getFilmScreenings,
+  getScreening,
+  addScreening,
+  patchScreening,
+  removeScreening,
+} from "../Controllers/screenings.controller.js";
 
 const router = Router();
 
-router.get("/", checkToken, getScreenings);
-router.get("/film/:filmID", checkToken, getScreeningsByFilm);
-router.get("/:id", checkToken, getScreeningById);
-router.post("/", checkToken, checkAdmin, createScreening);
-router.patch("/:id", checkToken, checkAdmin, updateScreening);
-router.delete("/:id", checkToken, checkAdmin, deleteScreening);
+router.get("/", getScreenings);
+router.get("/film/:filmID", getFilmScreenings);   // AVANT /:id
+router.get("/:id", getScreening);
+router.post("/", checkAdmin, addScreening);
+router.patch("/:id", checkAdmin, patchScreening);
+router.delete("/:id", checkAdmin, removeScreening);
 
 export default router;
