@@ -1,3 +1,5 @@
+SET NAMES utf8mb4;
+
 DROP DATABASE IF EXISTS cinehub;
 
 CREATE DATABASE cinehub
@@ -39,7 +41,7 @@ CREATE TABLE screenings (
   sc_film INT NOT NULL,
   sc_room INT NOT NULL,
   sc_datetime DATETIME NOT NULL,
-  sc_price DECIMAL(5,2) NOT NULL,
+  sc_price DECIMAL(6,2) NOT NULL,
   FOREIGN KEY (sc_film) REFERENCES films(fi_id) ON DELETE CASCADE,
   FOREIGN KEY (sc_room) REFERENCES rooms(ro_id) ON DELETE CASCADE
 );

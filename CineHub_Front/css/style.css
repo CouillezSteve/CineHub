@@ -1,0 +1,100 @@
+:root {
+  --accent: #e63946;
+  --accent-dark: #c92a37;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Boutons principaux aux couleurs de CineHub */
+.btn-primary {
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent-dark);
+  --bs-btn-hover-border-color: var(--accent-dark);
+  --bs-btn-active-bg: var(--accent-dark);
+  --bs-btn-active-border-color: var(--accent-dark);
+  --bs-btn-disabled-bg: var(--accent);
+  --bs-btn-disabled-border-color: var(--accent);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent);
+  --bs-btn-hover-border-color: var(--accent);
+  --bs-btn-active-bg: var(--accent-dark);
+  --bs-btn-active-border-color: var(--accent-dark);
+}
+
+.navbar-brand .bi,
+.text-accent {
+  color: var(--accent);
+}
+
+.navbar .nav-link.active {
+  color: var(--accent) !important;
+  font-weight: 600;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem rgba(230, 57, 70, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--accent);
+}
+
+/* Affiche factice */
+.poster {
+  aspect-ratio: 2 / 3;
+  border-radius: 0.6rem;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, hsl(var(--h) 55% 32%), hsl(var(--h2) 60% 12%));
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 4.5rem;
+  font-weight: 800;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.poster.poster-lg {
+  font-size: 7rem;
+}
+
+/* Cartes de films */
+.film-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.film-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.45);
+}
+
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Pages de connexion / inscription */
+.auth-wrapper {
+  max-width: 440px;
+  margin: 8vh auto;
+}
+
+.table > :not(caption) > * > * {
+  vertical-align: middle;
+}
