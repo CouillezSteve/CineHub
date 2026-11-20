@@ -1,0 +1,24 @@
+{
+  "name": "cinehub-front",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Interface web de CineHub (React + Vite + Bootstrap 5). Elle consomme l'API du dossier CineHub_Back.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.9",
+    "bootstrap-icons": "^1.13.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.3.0",
+    "vite": "^8.3.8"
+  }
+}
