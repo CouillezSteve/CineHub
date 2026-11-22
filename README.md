@@ -27,6 +27,13 @@ Une interface React + Vite + Bootstrap est fournie dans `CineHub_Front` (voir so
 2. Dans `CineHub_Front` : `npm install` puis `npm run dev`
 3. Ouvrir http://localhost:5173
 
+## Documentation
+
+Supports de présentation dans le dossier `Docs/` :
+
+- [Diapos de présentation](Docs/CineHub_Diapos.pdf)
+- [Guide pour l'oral](Docs/CineHub_Guide_Oral.pdf)
+
 ## Comptes de test
 
 | Rôle  | Username | Mot de passe |
