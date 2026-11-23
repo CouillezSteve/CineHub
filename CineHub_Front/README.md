@@ -29,6 +29,7 @@ Pour la changer, copier `.env.example` en `.env` et modifier `VITE_API_URL`.
 | `/` | Films à l'affiche, recherche, filtre par genre | connecté |
 | `/films/:id` | Détail d'un film, séances, réservation | connecté |
 | `/reservations` | Mes réservations, annulation | connecté |
+| `/profile` | Mon profil : changer username / email et mot de passe | connecté |
 | `/admin` | CRUD films / salles / séances + toutes les réservations | admin |
 
 ## Structure
@@ -38,8 +39,8 @@ src/
 ├── api.js              # fetch + JWT (localStorage)
 ├── format.js           # dates, prix, durées
 ├── context/            # AuthContext (utilisateur), ToastContext (messages)
-├── components/         # Navbar, Modal, Poster, ProtectedRoute, Loading
-└── pages/              # Login, Register, Films, FilmDetail, Reservations, Admin
+├── components/         # Navbar, Modal, Poster, PasswordInput, ProtectedRoute, Loading
+└── pages/              # Login, Register, Films, FilmDetail, Reservations, Profile, Admin
 ```
 
 Le token JWT est envoyé dans `Authorization: Bearer <token>`. Si l'API le refuse

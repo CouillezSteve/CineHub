@@ -1,6 +1,8 @@
+import bcrypt from "bcrypt";
 import {
   getAllUsers,
   getUserById,
+  getPasswordHashById,
   updateUser,
   deleteUser,
 } from "../Models/users.model.js";
@@ -46,12 +48,33 @@ export const patchUser = async (req, res) => {
       return res.status(403).json({ error: "Accès refusé" });
     }
 
-    const { username, email } = req.body ?? {};
-    if (!username && !email) {
+    const { username, email, password, current_password } = req.body ?? {};
+    if (!username && !email && !password) {
       return res.status(403).json({ error: "Aucun champ à modifier" });
     }
 
-    const result = await updateUser(id, username, email);
+    // Changement de mot de passe (en plus de username / email)
+    let hashedPassword = null;
+    if (password) {
+      if (password.length < 6) {
+        return res
+          .status(403)
+          .json({ error: "Mot de passe trop court (6 caractères minimum)" });
+      }
+      // Pour changer son propre mot de passe, il faut fournir l'actuel
+      if (isSelf) {
+        if (!current_password) {
+          return res.status(403).json({ error: "Mot de passe actuel requis" });
+        }
+        const currentHash = await getPasswordHashById(id);
+        if (!currentHash || !bcrypt.compareSync(current_password, currentHash)) {
+          return res.status(403).json({ error: "Mot de passe actuel incorrect" });
+        }
+      }
+      hashedPassword = await bcrypt.hash(password, 10);
+    }
+
+    const result = await updateUser(id, username, email, hashedPassword);
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Utilisateur introuvable" });
     }
@@ -59,6 +82,9 @@ export const patchUser = async (req, res) => {
     res.json(await getUserById(id));
   } catch (error) {
     console.error(error);
+    if (error.code === "ER_DUP_ENTRY") {
+      return res.status(500).json({ error: "Nom d'utilisateur ou email déjà utilisé" });
+    }
     res.status(500).json({ error: "Erreur serveur" });
   }
 };

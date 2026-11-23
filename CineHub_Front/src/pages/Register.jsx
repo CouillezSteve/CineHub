@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
+import PasswordInput from "../components/PasswordInput.jsx";
 
 // Crée le compte puis connecte directement l'utilisateur
 export default function Register() {
@@ -59,7 +60,7 @@ export default function Register() {
               </div>
               <div className="mb-4">
                 <label htmlFor="password" className="form-label">Mot de passe</label>
-                <input id="password" type="password" className="form-control" autoComplete="new-password" minLength={6} value={form.password} onChange={set("password")} required />
+                <PasswordInput id="password" autoComplete="new-password" minLength={6} value={form.password} onChange={set("password")} />
                 <div className="form-text">6 caractères minimum.</div>
               </div>
               <button type="submit" className="btn btn-primary w-100" disabled={loading}>S'inscrire</button>

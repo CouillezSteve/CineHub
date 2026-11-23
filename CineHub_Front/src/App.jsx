@@ -7,6 +7,7 @@ import Register from "./pages/Register.jsx";
 import Films from "./pages/Films.jsx";
 import FilmDetail from "./pages/FilmDetail.jsx";
 import Reservations from "./pages/Reservations.jsx";
+import Profile from "./pages/Profile.jsx";
 import Admin from "./pages/Admin.jsx";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/" element={<ProtectedRoute><Films /></ProtectedRoute>} />
         <Route path="/films/:id" element={<ProtectedRoute><FilmDetail /></ProtectedRoute>} />
         <Route path="/reservations" element={<ProtectedRoute><Reservations /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute adminOnly><Admin /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

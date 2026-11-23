@@ -31,13 +31,22 @@ export const getUserById = async (id) => {
   return rows[0];
 };
 
-export const updateUser = async (id, username, email) => {
+export const getPasswordHashById = async (id) => {
+  const [rows] = await pool.query(
+    "SELECT us_password FROM users WHERE us_id = ?",
+    [id]
+  );
+  return rows[0]?.us_password;
+};
+
+export const updateUser = async (id, username, email, hashedPassword) => {
   const [result] = await pool.query(
     `UPDATE users
      SET us_username = COALESCE(?, us_username),
-         us_email = COALESCE(?, us_email)
+         us_email = COALESCE(?, us_email),
+         us_password = COALESCE(?, us_password)
      WHERE us_id = ?`,
-    [username ?? null, email ?? null, id]
+    [username ?? null, email ?? null, hashedPassword ?? null, id]
   );
   return result;
 };

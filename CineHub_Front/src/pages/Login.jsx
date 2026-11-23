@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
+import PasswordInput from "../components/PasswordInput.jsx";
 
 export default function Login() {
   const { login } = useAuth();
@@ -53,14 +54,11 @@ export default function Login() {
               </div>
               <div className="mb-4">
                 <label htmlFor="password" className="form-label">Mot de passe</label>
-                <input
+                <PasswordInput
                   id="password"
-                  type="password"
-                  className="form-control"
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
               </div>
               <button type="submit" className="btn btn-primary w-100" disabled={loading}>Se connecter</button>
